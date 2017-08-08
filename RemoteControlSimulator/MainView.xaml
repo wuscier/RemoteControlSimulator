@@ -1,0 +1,92 @@
+﻿<Window x:Class="RemoteControlSimulator.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cal="http://www.caliburnproject.org"
+        mc:Ignorable="d"
+        Title="远程遥控器" Height="600" Width="800"
+        FontSize="18">
+    
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                
+                <StackPanel.Resources>
+
+                <Style TargetType="TextBox">
+                    <Setter Property="Margin" Value="5"></Setter>
+                    <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                </Style>
+
+                <Style TargetType="TextBlock">
+                    <Setter Property="Margin" Value="5"></Setter>
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                </Style>
+
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="5 5 15 5"></Setter>
+                    <Setter Property="Padding" Value="10 0 10 0"></Setter>
+                    <Setter Property="Height" Value="28"></Setter>
+                </Style>
+
+
+                <Style TargetType="StackPanel">
+                        <Setter Property="Margin" Value="5"></Setter>
+                    </Style>
+                </StackPanel.Resources>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="IP地址:"></TextBlock>
+                    <TextBox x:Name="ServerIpAddress" Width="200"></TextBox>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="端口:"></TextBlock>
+                    <TextBox x:Name="Port" Width="100"></TextBox>
+                </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="Connect" Content="连接"></Button>
+                <TextBlock Text="连接状态："></TextBlock>
+                <TextBlock x:Name="Status"></TextBlock>
+            </StackPanel>
+
+        </StackPanel>
+            
+        <ListBox Grid.Row="1" x:Name="RemoteCommands">
+            <ListBox.Style>
+                <Style TargetType="{x:Type ListBox}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBox}">
+                                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                    <WrapPanel IsItemsHost="True"></WrapPanel>
+                                </ScrollViewer>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    
+                    <Setter Property="ItemTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <Button x:Name="SendCommand" Margin="5" Padding="5" cal:Bind.Model="{Binding Path=DataContext, RelativeSource={RelativeSource Mode=Self}}"   Content="{Binding Name}" IsEnabled="{Binding Enabled}"></Button>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    
+                </Style>
+            </ListBox.Style>
+            
+            <!--<Button x:Name="Interactive" Content="远程互动授课" ></Button>
+            <Button x:Name="Discussion" Grid.Row="0" Content="远程听评课" Grid.Column="1"></Button>
+            <Button x:Name="InteractiveWithoutLive" Grid.Row="0" Content="远程教研" Grid.Column="2"></Button>-->
+        </ListBox>
+
+    </Grid>
+</Window>
